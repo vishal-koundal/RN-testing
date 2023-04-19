@@ -13,8 +13,10 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   useColorScheme,
   View,
+  Linking,
 } from 'react-native';
 
 import {
@@ -61,7 +63,7 @@ function App(): JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-
+  const channelId = 'UCQJ5EyCZlcq942OQPS6Pr-Q';
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -72,6 +74,65 @@ function App(): JSX.Element {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
+        <TouchableOpacity
+          onPress={() =>
+            Linking.canOpenURL('youtube://channel/' + channelId).then(
+              supported => {
+                console.log('supported', supported);
+                if (supported) {
+                  return Linking.openURL('youtube://channel/' + channelId);
+                } else {
+                  return Linking.openURL(
+                    'https://www.youtube.com/channel/' + channelId,
+                  );
+                }
+              },
+            )
+          }>
+          <Text>Open Youtube</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            Linking.canOpenURL('whatsapp://').then(supported => {
+              console.log('supported', supported);
+              if (supported) {
+                return Linking.openURL('whatsapp://');
+              } else {
+                return Linking.openURL('https://wa.me/9877532562');
+              }
+            })
+          }>
+          <Text>Open Whatsapp</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() =>
+            Linking.canOpenURL('tg://').then(supported => {
+              console.log('supported', supported);
+              if (supported) {
+                return Linking.openURL('tg://');
+              } else {
+                return Linking.openURL('http://www.telegram.me');
+              }
+            })
+          }>
+          <Text>Open Telegram</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() =>
+            Linking.canOpenURL('viber://').then(supported => {
+              console.log('supported', supported);
+              if (supported) {
+                return Linking.openURL('viber://');
+              } else {
+                return Linking.openURL('http://www.viber.me');
+              }
+            })
+          }>
+          <Text>Open Telegram</Text>
+        </TouchableOpacity>
+
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
